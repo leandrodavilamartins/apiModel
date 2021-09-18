@@ -55,6 +55,20 @@ app.post('/estoque', (req,res) => {
     })
 })
 
+app.get('/estoque/:id', async (req,res) => {
+    const index = req.params.id;
+    const items = await readDatabase();
+    const filteredItems = items.filter( item => {
+        return item._id == index;
+    })
+    res.send(filteredItems);
+})
+
 app.listen(3000, () => {
     console.log('Listening on port 3000');
 });
+
+async function readDatabase(){
+    const result = await dataModel.find({})
+    return result;
+}
