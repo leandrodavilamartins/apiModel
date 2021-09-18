@@ -38,6 +38,22 @@ app.get('/estoque', (req,res) => {
     })
 })
 
+app.post('/estoque', (req,res) => {
+    const data = req.body;
+    const modelInstance = new dataModel({
+        name : data.name,
+        quantity : data.quantity
+    })
+
+    modelInstance.save()
+    .then( () => {
+        console.log('Dado salvo em banco de dados com sucesso!');
+        res.send("Item salvo com sucesso!");
+    })
+    .catch( err => {
+        console.error(err);
+    })
+})
 
 app.listen(3000, () => {
     console.log('Listening on port 3000');
